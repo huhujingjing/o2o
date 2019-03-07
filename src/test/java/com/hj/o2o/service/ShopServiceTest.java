@@ -2,12 +2,20 @@ package com.hj.o2o.service;
 
 import com.hj.o2o.BaseTest;
 import com.hj.o2o.dto.ShopExecution;
+import com.hj.o2o.entity.Area;
+import com.hj.o2o.entity.PersonInfo;
 import com.hj.o2o.entity.Shop;
+import com.hj.o2o.entity.ShopCategory;
+import com.hj.o2o.enums.ShopStateEnum;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
+import java.util.Date;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @Author: HUJING
@@ -19,48 +27,30 @@ public class ShopServiceTest extends BaseTest {
     @Autowired
     private ShopService shopService;
 
-//	@Test
-//	public void testAddShop() throws Exception {
-//		Shop shop = new Shop();
-//		shop.setOwnerId(1L);
-//		Area area = new Area();
-//		area.setAreaId(1L);
-//		ShopCategory sc = new ShopCategory();
-//		sc.setShopCategoryId(1L);
-//		shop.setShopName("mytest1");
-//		shop.setShopDesc("mytest1");
-//		shop.setShopAddr("testaddr1");
-//		shop.setPhone("13810524526");
-//		shop.setShopImg("test1");
-//		shop.setLongitude(1D);
-//		shop.setLatitude(1D);
-//		shop.setCreateTime(new Date());
-//		shop.setLastEditTime(new Date());
-//		shop.setEnableStatus(0);
-//		shop.setAdvice("审核中");
-//		shop.setArea(area);
-//		shop.setShopCategory(sc);
-//		ShopExecution se = shopService.addShop(shop);
-//		assertEquals("mytest1", se.getShop().getShopName());
-//	}
+	@Test
+	public void testAddShop() throws Exception {
+        Shop shop = new Shop();
+        PersonInfo owner = new PersonInfo();
+        Area area = new Area();
+        ShopCategory shopCategory = new ShopCategory();
+        owner.setUserId(1L);
+        shopCategory.setShopCategoryId(1L);
+        shop.setOwner(owner);
+        shop.setArea(area);
+        shop.setShopCategory(shopCategory);
+        shop.setShopName("测试的店铺");
+        shop.setShopDesc("test");
+        shop.setShopAddr("test");
+        shop.setPhone("test");
+        shop.setShopImg("test");
+        shop.setCreateTime(new Date());
+        shop.setEnableStatus(ShopStateEnum.CHECK.getState());
+        shop.setAdvice("审核中");
+        File shopImg = new File("D:\\学习文档\\类\\hj.jpg");
+        ShopExecution se = shopService.addShop(shop,shopImg);
+        assertEquals(ShopStateEnum.CHECK.getState(), se.getState());
+	}
 
 
-    @Test
-    public void testGetByEmployeeId() throws Exception {
-        long employeeId = 1;
-        ShopExecution shopExecution = shopService.getByEmployeeId(employeeId);
-        List<Shop> shopList = shopExecution.getShopList();
-        for (Shop shop : shopList) {
-            System.out.println(shop);
-        }
-    }
-
-    @Ignore
-    @Test
-    public void testGetByShopId() throws Exception {
-        long shopId = 1;
-        Shop shop = shopService.getByShopId(shopId);
-        System.out.println(shop);
-    }
 
 }

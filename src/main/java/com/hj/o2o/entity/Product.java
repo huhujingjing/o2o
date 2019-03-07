@@ -13,7 +13,8 @@ public class Product {
     private Long productId;
     private String productName;
     private String productDesc;
-    private String imgAddr;// 简略图
+    // 简略图
+    private String imgAddr;
     private String normalPrice;
     private String promotionPrice;
     private Integer priority;
@@ -21,7 +22,6 @@ public class Product {
     private Date lastEditTime;
     //-1.不可用，0.下架 1.在前端展示系统展示
     private Integer enableStatus;
-    private Integer point;
 
     private List<ProductImg> productImgList;
     private ProductCategory productCategory;
@@ -105,14 +105,6 @@ public class Product {
 
     public void setEnableStatus(Integer enableStatus) {
         this.enableStatus = enableStatus;
-    }
-
-    public Integer getPoint() {
-        return point;
-    }
-
-    public void setPoint(Integer point) {
-        this.point = point;
     }
 
     public List<ProductImg> getProductImgList() {

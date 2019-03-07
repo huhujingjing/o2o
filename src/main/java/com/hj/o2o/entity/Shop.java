@@ -12,10 +12,10 @@ import java.util.List;
 public class Shop {
     private Long shopId;
     private Long ownerId;
-    private Long shopCategoryId;
+    private Long shopCategoryId;//店铺分类Id
     private String shopName;
-    private String shopDesc;
-    private String shopAddr;
+    private String shopDesc;//店铺描述
+    private String shopAddr;//店铺具体地址
     private String phone;
     private String shopImg;
     private Double longitude;
@@ -28,10 +28,12 @@ public class Shop {
     //超级管理员给店家的提醒
     private String advice;
 
-    private List<ShopAuthMap> staffList;
+    //区域实体类：表示店铺属于哪一块区域
     private Area area;
+    //店铺类别实体类
     private ShopCategory shopCategory;
-    private ShopCategory parentCategory;
+    //用户信息实体类：表示店铺由谁创建
+    private PersonInfo owner;
 
     public Long getShopId() {
         return shopId;
@@ -145,12 +147,12 @@ public class Shop {
         this.enableStatus = enableStatus;
     }
 
-    public List<ShopAuthMap> getStaffList() {
-        return staffList;
+    public String getAdvice() {
+        return advice;
     }
 
-    public void setStaffList(List<ShopAuthMap> staffList) {
-        this.staffList = staffList;
+    public void setAdvice(String advice) {
+        this.advice = advice;
     }
 
     public Area getArea() {
@@ -169,23 +171,11 @@ public class Shop {
         this.shopCategory = shopCategory;
     }
 
-    public String getAdvice() {
-        return advice;
+    public PersonInfo getOwner() {
+        return owner;
     }
 
-    public void setAdvice(String advice) {
-        this.advice = advice;
-    }
-
-    public String toString() {
-        return "[shopId=" + shopId + ", shopName=" + shopName + "]";
-    }
-
-    public ShopCategory getParentCategory() {
-        return parentCategory;
-    }
-
-    public void setParentCategory(ShopCategory parentCategory) {
-        this.parentCategory = parentCategory;
+    public void setOwner(PersonInfo owner) {
+        this.owner = owner;
     }
 }
