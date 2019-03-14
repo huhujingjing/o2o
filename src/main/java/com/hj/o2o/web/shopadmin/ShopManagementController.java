@@ -11,6 +11,7 @@ import com.hj.o2o.exceptions.ShopOperationException;
 import com.hj.o2o.service.AreaService;
 import com.hj.o2o.service.ShopCategoryService;
 import com.hj.o2o.service.ShopService;
+import com.hj.o2o.util.CodeUtil;
 import com.hj.o2o.util.HttpServletRequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,7 +38,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/shopadmin")
-public class shopManagementController {
+public class ShopManagementController {
     @Autowired
     private ShopService shopService;
     @Autowired
@@ -68,6 +69,11 @@ public class shopManagementController {
     @ResponseBody
     private Map<String, Object> registerShop(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
+        if (!CodeUtil.checkVerifyCode(request)){
+            modelMap.put("success",false);
+            modelMap.put("errMsg","输入了错误的验证码");
+            return modelMap;
+        }
         //接受并转化相应的参数，包括店铺信息以及图片信息
         String shopStr = HttpServletRequestUtil.getString(request, "shopStr");
         ObjectMapper mapper = new ObjectMapper();

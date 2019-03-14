@@ -23,6 +23,7 @@ import java.util.Date;
  * @Description:
  */
 @Service
+@Transactional
 public class ShopServiceImpl implements ShopService {
     @Autowired
     private ShopDao shopDao;
@@ -41,6 +42,7 @@ public class ShopServiceImpl implements ShopService {
         try{
             //给店铺信息赋初始值
             shop.setEnableStatus(0);
+            shop.setAdvice("审核中");
             shop.setCreateTime(new Date());
             shop.setLastEditTime(new Date());
             //添加店铺信息

@@ -25,7 +25,7 @@ public class ShopDaoTest extends BaseTest {
     private ShopDao shopDao;
 
     @Test
-    @Ignore
+//    @Ignore
     public void testAInsertShop() throws Exception {
         Shop shop = new Shop();
         PersonInfo owner = new PersonInfo();
@@ -36,11 +36,11 @@ public class ShopDaoTest extends BaseTest {
         shop.setOwner(owner);
         shop.setArea(area);
         shop.setShopCategory(shopCategory);
-        shop.setShopName("测试的店铺");
-        shop.setShopDesc("test");
-        shop.setShopAddr("test");
-        shop.setPhone("test");
-        shop.setShopImg("test");
+        shop.setShopName("测试的店铺5");
+        shop.setShopDesc("test5");
+        shop.setShopAddr("test5");
+        shop.setPhone("test5");
+        shop.setShopImg("test5");
         shop.setCreateTime(new Date());
         shop.setEnableStatus(1);
         shop.setAdvice("审核中");
