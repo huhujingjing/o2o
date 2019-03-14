@@ -2,9 +2,9 @@ package com.hj.o2o.service;
 
 import com.hj.o2o.dto.ShopExecution;
 import com.hj.o2o.entity.Shop;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import com.hj.o2o.exceptions.ShopOperationException;
 
-import java.io.File;
+import java.io.InputStream;
 
 /**
  * @Author: HUJING
@@ -21,5 +21,5 @@ public interface ShopService {
      * @return ShopExecution shopExecution
      * @throws Exception
      */
-    ShopExecution addShop(Shop shop, CommonsMultipartFile shopImg);
+    ShopExecution addShop(Shop shop, InputStream shopImgInputStream,String fileName) throws ShopOperationException;
 }

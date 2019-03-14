@@ -18,7 +18,7 @@
 	<update id="updateShop" parameterType="com.hj.o2o.entity.Shop">
 		update tb_shop 
 	  	<set>
-			<if test="shopName != null">shop_name={shopName},</if>
+			<if test="shopName != null">shop_name=#{shopName},</if>
 			<if test="shopDesc != null">shop_desc=#{shopDesc},</if>
 			<if test="shopAddr != null">shop_addr=#{shopAddr},</if>
 			<if test="phone != null">phone=#{phone},</if>

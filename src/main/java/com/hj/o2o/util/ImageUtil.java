@@ -2,11 +2,13 @@ package com.hj.o2o.util;
 
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import static com.hj.o2o.util.FileUtil.getRandomFileName;
 
@@ -18,18 +20,23 @@ import static com.hj.o2o.util.FileUtil.getRandomFileName;
  */
 public class ImageUtil {
     private static String basePath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-    public static String generateThumbnail(CommonsMultipartFile thumbnail,String targetAddr){
+    private static Logger logger = LoggerFactory.getLogger(ImageUtil.class);
+    public static String generateThumbnail(InputStream thumbnailInputStream,String fileName,String targetAddr){
         String realFileName = getRandomFileName();
-        String extension = getFileExtension(thumbnail);
+        String extension = getFileExtension(fileName);
         makeDirPath(targetAddr);
         String relativeAddr = targetAddr + realFileName + extension;
+        logger.debug("current relativeAddr is:" + relativeAddr);
         File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
         try{
-            Thumbnails.of(thumbnail.getInputStream()).size(200,200)
+            System.out.println(basePath);
+//            basePath = URLDecoder.decode(basePath,"utf-8");
+            Thumbnails.of(thumbnailInputStream).size(200,200)
                     .watermark(Positions.BOTTOM_RIGHT,
-                            ImageIO.read(new File(basePath + "/water.jpg")), 0.25f)
+                            ImageIO.read(new File(basePath + "/watermark.jpg")), 0.25f)
                     .outputQuality(0.8f).toFile(dest);
         } catch (IOException e){
+            logger.error(e.toString());
             e.printStackTrace();
         }
         return relativeAddr;
@@ -50,12 +57,11 @@ public class ImageUtil {
 
     /**
      * 获取输入文件流的扩展名
-     * @param cFile
+     * @param fileName
      * @return
      */
-    private static String getFileExtension(CommonsMultipartFile cFile) {
-        String originalFileName = cFile.getOriginalFilename();
-        return originalFileName.substring(originalFileName.lastIndexOf("."));
+    private static String getFileExtension(String fileName) {
+        return fileName.substring(fileName.lastIndexOf("."));
     }
 
     public static void main(String[] args) throws IOException {
