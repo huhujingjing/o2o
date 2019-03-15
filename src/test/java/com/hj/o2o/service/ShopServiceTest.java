@@ -7,11 +7,13 @@ import com.hj.o2o.entity.PersonInfo;
 import com.hj.o2o.entity.Shop;
 import com.hj.o2o.entity.ShopCategory;
 import com.hj.o2o.enums.ShopStateEnum;
+import com.hj.o2o.exceptions.ShopOperationException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Date;
 
@@ -49,6 +51,17 @@ public class ShopServiceTest extends BaseTest {
         InputStream is = new FileInputStream(shopImg);
         ShopExecution se = shopService.addShop(shop,is,shopImg.getName());
         assertEquals(ShopStateEnum.CHECK.getState(), se.getState());
+    }
+
+    @Test
+    public void testModifyShop() throws ShopOperationException, FileNotFoundException {
+        Shop shop = new Shop();
+        shop.setShopId(1L);
+        shop.setShopName("修改后的店铺名称");
+        File shopImg = new File("D:\\D盘文件\\图片\\PROJECT2017_wp-8_1920x1080.jpg");
+        InputStream is = new FileInputStream(shopImg);
+        ShopExecution shopExecution = shopService.modifyShop(shop, is, "PROJECT2017_wp-8_1920x1080.jpg");
+        System.out.println("新的图片地址为："+shopExecution.getShop().getShopImg());
     }
 
 //    public FileItem createFileItem(String filePath) {

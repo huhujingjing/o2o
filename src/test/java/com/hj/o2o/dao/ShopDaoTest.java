@@ -25,7 +25,7 @@ public class ShopDaoTest extends BaseTest {
     private ShopDao shopDao;
 
     @Test
-//    @Ignore
+    @Ignore
     public void testAInsertShop() throws Exception {
         Shop shop = new Shop();
         PersonInfo owner = new PersonInfo();
@@ -47,59 +47,69 @@ public class ShopDaoTest extends BaseTest {
         int effectedNum = shopDao.insertShop(shop);
         assertEquals(1, effectedNum);
     }
-//
-//    @Test
-//    public void testBQueryByEmployeeId() throws Exception {
-//        long employeeId = 1;
-//        List<Shop> shopList = shopDao.queryByEmployeeId(employeeId);
-//        for (Shop shop : shopList) {
-//            System.out.println(shop);
-//        }
-//    }
-//
-//    @Test
-//    public void testBQueryShopList() throws Exception {
-//        Shop shop = new Shop();
-//        List<Shop> shopList = shopDao.queryShopList(shop, 0, 2);
-//        assertEquals(2, shopList.size());
-//        int count = shopDao.queryShopCount(shop);
-//        assertEquals(3, count);
-//        shop.setShopName("花");
-//        shopList = shopDao.queryShopList(shop, 0, 3);
-//        assertEquals(2, shopList.size());
-//        count = shopDao.queryShopCount(shop);
-//        assertEquals(2, count);
-//        shop.setShopId(1L);
-//        shopList = shopDao.queryShopList(shop, 0, 3);
-//        assertEquals(1, shopList.size());
-//        count = shopDao.queryShopCount(shop);
-//        assertEquals(1, count);
-//
-//    }
-//
-//    @Test
-//    public void testCQueryByShopId() throws Exception {
-//        long shopId = 1;
-//        Shop shop = shopDao.queryByShopId(shopId);
-//        System.out.println(shop);
-//    }
-//
-        @Test
-        public void testUpdateShop() {
-            Shop shop = new Shop();
-            shop.setShopId(2L);
-            shop.setShopDesc("测试描述");
-            shop.setShopAddr("测试地址");
-            shop.setLastEditTime(new Date());
-            int effectedNum = shopDao.updateShop(shop);
-            assertEquals(1, effectedNum);
-        }
-//
-//    @Test
-//    public void testEDeleteShopByName() throws Exception {
-//        String shopName = "mytest1";
-//        int effectedNum = shopDao.deleteShopByName(shopName);
-//        assertEquals(1, effectedNum);
-//
+
+    @Test
+    public void testQueryByShopId() {
+        long shopId = 1;
+        Shop shop = shopDao.queryByShopId(shopId);
+        System.out.println("areaId:" + shop.getArea().getAreaId());
+        System.out.println("areaName:" + shop.getArea().getAreaName());
+    }
+
+    //
+    //    @Test
+    //    public void testBQueryByEmployeeId() throws Exception {
+    //        long employeeId = 1;
+    //        List<Shop> shopList = shopDao.queryByEmployeeId(employeeId);
+    //        for (Shop shop : shopList) {
+    //            System.out.println(shop);
+    //        }
+    //    }
+    //
+    //    @Test
+    //    public void testBQueryShopList() throws Exception {
+    //        Shop shop = new Shop();
+    //        List<Shop> shopList = shopDao.queryShopList(shop, 0, 2);
+    //        assertEquals(2, shopList.size());
+    //        int count = shopDao.queryShopCount(shop);
+    //        assertEquals(3, count);
+    //        shop.setShopName("花");
+    //        shopList = shopDao.queryShopList(shop, 0, 3);
+    //        assertEquals(2, shopList.size());
+    //        count = shopDao.queryShopCount(shop);
+    //        assertEquals(2, count);
+    //        shop.setShopId(1L);
+    //        shopList = shopDao.queryShopList(shop, 0, 3);
+    //        assertEquals(1, shopList.size());
+    //        count = shopDao.queryShopCount(shop);
+    //        assertEquals(1, count);
+    //
+    //    }
+    //
+    //    @Test
+    //    public void testCQueryByShopId() throws Exception {
+    //        long shopId = 1;
+    //        Shop shop = shopDao.queryByShopId(shopId);
+    //        System.out.println(shop);
+    //    }
+    //
+    @Test
+    @Ignore
+    public void testUpdateShop() {
+        Shop shop = new Shop();
+        shop.setShopId(2L);
+        shop.setShopDesc("测试描述");
+        shop.setShopAddr("测试地址");
+        shop.setLastEditTime(new Date());
+        int effectedNum = shopDao.updateShop(shop);
+        assertEquals(1, effectedNum);
+    }
+    //
+    //    @Test
+    //    public void testEDeleteShopByName() throws Exception {
+    //        String shopName = "mytest1";
+    //        int effectedNum = shopDao.deleteShopByName(shopName);
+    //        assertEquals(1, effectedNum);
+    //
 
 }
