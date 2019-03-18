@@ -8,6 +8,7 @@ import com.hj.o2o.entity.Shop;
 import com.hj.o2o.entity.ShopCategory;
 import com.hj.o2o.enums.ShopStateEnum;
 import com.hj.o2o.exceptions.ShopOperationException;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -29,6 +31,18 @@ public class ShopServiceTest extends BaseTest {
     @Autowired
     private ShopService shopService;
 
+    @Test
+    public void testQueryShopListAndCount() {
+        Shop shopCondition = new Shop();
+        ShopCategory sc = new ShopCategory();
+        sc.setShopCategoryId(3L);
+        shopCondition.setShopCategory(sc);
+        ShopExecution se = shopService.getShopList(shopCondition, 2, 2);
+        System.out.println("店铺列表数为：" + se.getShopList().size());
+        System.out.println("店铺总数：" + se.getCount());
+    }
+
+    @Ignore
     @Test
     public void testAddShop() throws Exception {
         Shop shop = new Shop();
@@ -53,6 +67,7 @@ public class ShopServiceTest extends BaseTest {
         assertEquals(ShopStateEnum.CHECK.getState(), se.getState());
     }
 
+    @Ignore
     @Test
     public void testModifyShop() throws ShopOperationException, FileNotFoundException {
         Shop shop = new Shop();

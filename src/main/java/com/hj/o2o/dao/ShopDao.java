@@ -13,11 +13,11 @@ import java.util.List;
  */
 public interface ShopDao {
     /**
-     * 分页查询店铺,可输入的条件有：店铺名（模糊），店铺状态，店铺Id,店铺类别,区域ID
+     * 分页查询店铺,可输入的条件有：店铺名（模糊），店铺状态，店铺Id,店铺类别,区域ID,owner
      *
      * @param shopCondition
-     * @param rowIndex
-     * @param pageSize
+     * @param rowIndex  从第几行开始取数据
+     * @param pageSize  返回的条数
      * @return
      */
     List<Shop> queryShopList(@Param("shopCondition") Shop shopCondition,

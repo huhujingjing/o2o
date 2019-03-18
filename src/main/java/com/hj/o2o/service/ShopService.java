@@ -3,8 +3,10 @@ package com.hj.o2o.service;
 import com.hj.o2o.dto.ShopExecution;
 import com.hj.o2o.entity.Shop;
 import com.hj.o2o.exceptions.ShopOperationException;
+import com.hj.o2o.util.PageCalculator;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * @Author: HUJING
@@ -13,6 +15,15 @@ import java.io.InputStream;
  * @Description:
  */
 public interface ShopService {
+
+    /**
+     * 根据shopCondition分页返回相应店铺列表
+     * @param shopCondition
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    public ShopExecution getShopList(Shop shopCondition,int pageIndex,int pageSize);
 
     /**
      * 通过店铺Id获取店铺信息
