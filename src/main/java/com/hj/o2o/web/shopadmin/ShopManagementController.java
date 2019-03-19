@@ -1,6 +1,7 @@
 package com.hj.o2o.web.shopadmin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hj.o2o.dto.ImageHolder;
 import com.hj.o2o.dto.ShopExecution;
 import com.hj.o2o.entity.Area;
 import com.hj.o2o.entity.PersonInfo;
@@ -48,24 +49,24 @@ public class ShopManagementController {
 
     @RequestMapping(value = "/getshopmanagementinfo", method = RequestMethod.GET)
     @ResponseBody
-    private Map<String, Object> getShopManagementInfo(HttpServletRequest request){
+    private Map<String, Object> getShopManagementInfo(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<>();
-        long shopId = HttpServletRequestUtil.getLong(request,"shopId");
-        if (shopId <= 0){
+        long shopId = HttpServletRequestUtil.getLong(request, "shopId");
+        if (shopId <= 0) {
             Object currentShopObj = request.getSession().getAttribute("currentShop");
-            if (currentShopObj == null){
-                modelMap.put("redirect",true);
-                modelMap.put("url","shoplist");
+            if (currentShopObj == null) {
+                modelMap.put("redirect", true);
+                modelMap.put("url", "shoplist");
             } else {
-                Shop currentShop = (Shop)currentShopObj;
-                modelMap.put("redirect",false);
-                modelMap.put("shopId",currentShop.getShopId());
+                Shop currentShop = (Shop) currentShopObj;
+                modelMap.put("redirect", false);
+                modelMap.put("shopId", currentShop.getShopId());
             }
         } else {
             Shop currentShop = new Shop();
             currentShop.setShopId(shopId);
-            request.getSession().setAttribute("currentShop",currentShop);
-            modelMap.put("redirect",false);
+            request.getSession().setAttribute("currentShop", currentShop);
+            modelMap.put("redirect", false);
         }
         return modelMap;
     }
@@ -83,12 +84,12 @@ public class ShopManagementController {
             Shop shopCondition = new Shop();
             shopCondition.setOwner(user);
             ShopExecution se = shopService.getShopList(shopCondition, 0, 100);
-            modelMap.put("shopList",se.getShopList());
-            modelMap.put("user",user);
-            modelMap.put("success",true);
+            modelMap.put("shopList", se.getShopList());
+            modelMap.put("user", user);
+            modelMap.put("success", true);
         } catch (Exception e) {
-            modelMap.put("success",false);
-            modelMap.put("errMsg",e.getMessage());
+            modelMap.put("success", false);
+            modelMap.put("errMsg", e.getMessage());
         }
         return modelMap;
     }
@@ -173,7 +174,8 @@ public class ShopManagementController {
             shop.setOwner(owner);
             ShopExecution se;
             try {
-                se = shopService.addShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+                ImageHolder imageHolder = new ImageHolder(shopImg.getOriginalFilename(), shopImg.getInputStream());
+                se = shopService.addShop(shop, imageHolder);
                 if (se.getState() == ShopStateEnum.CHECK.getState()) {
                     modelMap.put("success", true);
                     //该用户可以操作的店铺列表
@@ -235,9 +237,10 @@ public class ShopManagementController {
             ShopExecution se;
             try {
                 if (shopImg == null) {
-                    se = shopService.modifyShop(shop, null, null);
+                    se = shopService.modifyShop(shop, null);
                 } else {
-                    se = shopService.modifyShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+                    ImageHolder imageHolder = new ImageHolder(shopImg.getOriginalFilename(), shopImg.getInputStream());
+                    se = shopService.modifyShop(shop, imageHolder);
                 }
 
                 if (se.getState() == ShopStateEnum.CHECK.getState()) {
