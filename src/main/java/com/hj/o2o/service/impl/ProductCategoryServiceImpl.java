@@ -1,6 +1,7 @@
 package com.hj.o2o.service.impl;
 
 import com.hj.o2o.dao.ProductCategoryDao;
+import com.hj.o2o.dao.ProductDao;
 import com.hj.o2o.dto.ProductCategoryExecution;
 import com.hj.o2o.entity.ProductCategory;
 import com.hj.o2o.enums.ProductCategoryStateEnum;
@@ -19,6 +20,10 @@ import java.util.List;
  */
 @Service
 public class ProductCategoryServiceImpl implements ProductCategoryService {
+
+    @Autowired
+    private ProductDao productDao;
+
     @Autowired
     private ProductCategoryDao productCategoryDao;
 
@@ -53,18 +58,19 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     @Override
     @Transactional
     public ProductCategoryExecution deleteProductCategory(long productCategoryId, long shopId)
-            throws RuntimeException {
-        //TODO将此商品类别下的商品的类别Id置为空
-        //        try {
-        //            int effectedNum = productCategoryDao
-        //                    .updateProductCategoryToNull(productCategoryId);
-        //            if (effectedNum < 0) {
-        //                throw new RuntimeException("商品类别更新失败");
-        //            }
-        //        } catch (Exception e) {
-        //            throw new RuntimeException("deleteProductCategory error: "
-        //                    + e.getMessage());
-        //        }
+            throws ProductCategoryOperationException {
+        //接触tb_product里的商品与该productcategoryId的关联
+        try {
+            int effectedNum = productDao
+                    .updateProductCategoryToNull(productCategoryId);
+            if (effectedNum < 0) {
+                throw new ProductCategoryOperationException("商品类别更新失败");
+            }
+        } catch (Exception e) {
+            throw new ProductCategoryOperationException("deleteProductCategory error: "
+                    + e.getMessage());
+        }
+        //删除该productCategory
         try {
             int effectedNum = productCategoryDao.deleteProductCategory(productCategoryId, shopId);
             if (effectedNum <= 0) {

@@ -19,9 +19,9 @@
                      javaType="com.hj.o2o.entity.ProductCategory">
             <id column="product_category_id" property="productCategoryId" />
             <result column="product_category_name" property="productCategoryName" />
-            <result column="product_category_desc" property="productCategoryDesc" />
-            <result column="priority" property="priority" />
-            <result column="create_time" property="createTime" />
+            <!--<result column="product_category_desc" property="productCategoryDesc" />-->
+            <!--<result column="priority" property="priority" />-->
+            <!--<result column="create_time" property="createTime" />-->
             <!--<result column="last_edit_time" property="lastEditTime" />-->
         </association>
         <association property="shop" column="shop_id"
@@ -29,17 +29,17 @@
             <id column="shop_id" property="shopId" />
             <result column="owner_id" property="ownerId" />
             <result column="shop_name" property="shopName" />
-            <result column="shop_desc" property="shopDesc" />
-            <result column="shop_addr" property="shopAddr" />
-            <result column="phone" property="phone" />
-            <result column="shop_img" property="shopImg" />
-            <result column="longitude" property="longitude" />
-            <result column="latitude" property="latitude" />
-            <result column="priority" property="priority" />
-            <result column="create_time" property="createTime" />
+            <!--<result column="shop_desc" property="shopDesc" />-->
+            <!--<result column="shop_addr" property="shopAddr" />-->
+            <!--<result column="phone" property="phone" />-->
+            <!--<result column="shop_img" property="shopImg" />-->
+            <!--<result column="longitude" property="longitude" />-->
+            <!--<result column="latitude" property="latitude" />-->
+            <!--<result column="priority" property="priority" />-->
+            <!--<result column="create_time" property="createTime" />-->
             <!--<result column="last_edit_time" property="lastEditTime" />-->
-            <result column="enable_status" property="enableStatus" />
-            <result column="advice" property="advice" />
+            <!--<result column="enable_status" property="enableStatus" />-->
+            <!--<result column="advice" property="advice" />-->
         </association>
         <collection property="productImgList" column="product_id"
                     ofType="com.hj.o2o.entity.ProductImg">
@@ -69,13 +69,11 @@
         FROM
         tb_product
         <where>
-            <if
-                    test="productCondition.shop!=null
+            <if test="productCondition.shop!=null
 				 and productCondition.shop.shopId!=null">
                 and shop_id = #{productCondition.shop.shopId}
             </if>
-            <if
-                    test="productCondition.productCategory!=null
+            <if test="productCondition.productCategory!=null
 				 and productCondition.productCategory.productCategoryId!=null">
                 and product_category_id =
                 #{productCondition.productCategory.productCategoryId}
@@ -97,13 +95,11 @@
     <select id="queryProductCount" resultType="int">
         SELECT count(1) FROM tb_product
         <where>
-            <if
-                    test="productCondition.shop!=null
+            <if test="productCondition.shop!=null
 				 and productCondition.shop.shopId!=null">
                 and shop_id = #{productCondition.shop.shopId}
             </if>
-            <if
-                    test="productCondition.productCategory!=null
+            <if test="productCondition.productCategory!=null
 				 and productCondition.productCategory.productCategoryId!=null">
                 and product_category_id =
                 #{productCondition.productCategory.productCategoryId}
@@ -176,9 +172,8 @@
             <if test="normalPrice != null">normal_price=#{normalPrice},</if>
             <if test="promotionPrice != null">promotion_price=#{promotionPrice},</if>
             <if test="priority != null">priority=#{priority},</if>
-            <!--<if test="lastEditTime != null">last_edit_time=#{lastEditTime},</if>-->
+            <if test="lastEditTime != null">last_edit_time=#{lastEditTime},</if>
             <if test="enableStatus != null">enable_status=#{enableStatus},</if>
-            <if test="point != null">point=#{point},</if>
             <if
                     test="productCategory != null
 				 and productCategory.productCategoryId != null">
