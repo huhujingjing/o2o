@@ -1,10 +1,10 @@
 $(function () {
     var shopId = getQueryString('shopId');
     var isEdit = shopId ? true : false;
-    var initurl = '/shopadmin/getshopinitinfo';
-    var registerShopUrl = '/shopadmin/registershop';
-    var shopInfoUrl = '/shopadmin/getshopbyid?shopId=' + shopId;
-    var editShopUrl = '/shopadmin/modifyshop';
+    var initurl = '/o2o/shopadmin/getshopinitinfo';
+    var registerShopUrl = '/o2o/shopadmin/registershop';
+    var shopInfoUrl = '/o2o/shopadmin/getshopbyid?shopId=' + shopId;
+    var editShopUrl = '/o2o/shopadmin/modifyshop';
     if (!isEdit) {
         getShopInitInfo();
     } else {
@@ -99,6 +99,10 @@ $(function () {
                 $('#captcha_img').click();
             }
         });
+    });
+
+    $('#back').click(function () {
+        window.location.href = '/o2o/shopadmin/shopmanagement';
     });
 
 })

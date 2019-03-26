@@ -56,7 +56,7 @@ public class ShopManagementController {
             Object currentShopObj = request.getSession().getAttribute("currentShop");
             if (currentShopObj == null) {
                 modelMap.put("redirect", true);
-                modelMap.put("url", "shoplist");
+                modelMap.put("url", "/o2o/shopadmin/shoplist");
             } else {
                 Shop currentShop = (Shop) currentShopObj;
                 modelMap.put("redirect", false);
@@ -75,16 +75,18 @@ public class ShopManagementController {
     @ResponseBody
     private Map<String, Object> getShopList(HttpServletRequest request) {
         Map<String, Object> modelMap = new HashMap<>();
-        PersonInfo user = new PersonInfo();
-        user.setUserId(1L);
-        user.setName("test");
-        request.getSession().setAttribute("user", user);
-        user = (PersonInfo) request.getSession().getAttribute("user");
+//        PersonInfo user = new PersonInfo();
+//        user.setUserId(1L);
+//        user.setName("test");
+//        request.getSession().setAttribute("user", user);
+        PersonInfo user = (PersonInfo) request.getSession().getAttribute("user");
         try {
             Shop shopCondition = new Shop();
             shopCondition.setOwner(user);
             ShopExecution se = shopService.getShopList(shopCondition, 0, 100);
             modelMap.put("shopList", se.getShopList());
+            //列出店铺成功之后，将店铺放入session中作为权限验证依据，即该账号只能操作它自己的店铺
+            request.getSession().setAttribute("shopList",se.getShopList());
             modelMap.put("user", user);
             modelMap.put("success", true);
         } catch (Exception e) {

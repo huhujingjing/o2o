@@ -9,11 +9,17 @@ import java.util.Date;
  * @Description:
  */
 public class LocalAuth {
+    //主键ID
     private Long localAuthId;
+    //账号
     private String username;
+    //密码
     private String password;
+    //创建时间
     private Date createTime;
+    //最近一次的更新时间
     private Date lastEditTime;
+    //个人信息，关系为一一对应
     private PersonInfo personInfo;
 
     public Long getLocalAuthId() {

@@ -13,6 +13,7 @@ import java.util.List;
  * @Date: 2019/3/20 20:46
  */
 public interface HeadLineService {
+    public static final String HLLISTKEY = "headlinelist";
     /**
      * 根据传入的条件返回指定的头条列表
      *
